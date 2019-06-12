@@ -1,3 +1,5 @@
 lencode
 ldecode
 .vscode/
+*.out
+*.lzw
