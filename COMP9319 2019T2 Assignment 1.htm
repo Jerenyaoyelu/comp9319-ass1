@@ -1,0 +1,142 @@
+
+<!-- saved from url=(0052)https://www.cse.unsw.edu.au/~wong/cs9319-2019a1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>COMP9319 2019T2 Assignment 1</title>
+</head>
+<body>
+<h1>COMP9319 2019T2 Assignment 1: LZW Encoding and Decoding</h1>
+Your task in this assignment is to implement the original LZW encoder and decoder with 14-bit 16384 dictionary entries, called <code>lencode</code> and <code>ldecode</code>, in C/C++. After the dictionary is full, no new entries can be added.
+<br><br>
+This assignment is to let you understand how LZW works, rather than to produce encoded files with reduced size. Therefore, the encoder will take input from the the standard input and output directly to the standard output. You may assume the input contains one or more visible ASCII characters (plus spaces and tabs). 
+You may further assume that there is one and only one newline character at the end. You do not need to encode this newline character and you should just treat it as EOF as shown in the examples below. To be able to decode and get back the identical file to the original file, make sure you also output one newline character accordingly at the end, as illustrated in the examples.
+<br><br>
+For example, 
+<pre>%wagner&gt; cat test.txt
+^WED^WE^WEE^WEB^WET
+%wagner&gt; cat test.txt | lencode
+^ W E D 256 E 260 261 257 B 260 T
+%wagner&gt; cat test.txt | lencode | ldecode &gt; test.out
+%wagner&gt; diff test.txt test.out
+%wagner&gt; 
+</pre>
+You may assume that a space is used as the delimiter between the codewords. For instance, if there are three consecutive spaces between two codewords, the second space is a codeword itself and the other twos are delimiters. Similarly, the symbols that are digits can be easily distinguished from dictionary references:
+<pre>%wagner&gt; cat numbers.txt
+123123123
+%wagner&gt; cat numbers.txt | lencode
+1 2 3 256 258 257
+%wagner&gt;
+</pre>
+<br><br>
+
+
+
+You should submit totally two C or C++ files, one for encoding and one for decoding.
+Your submitted files will be compiled using the command depending on their file extensions:
+<pre>%wagner&gt; gcc -o lencode lencode.c
+%wagner&gt; gcc -o lencode ldecode.c
+</pre>
+or:
+<pre>%wagner&gt; g++ -o lencode lencode.cpp
+%wagner&gt; g++ -o lencode ldecode.cpp
+</pre>
+
+<br><br>
+
+ 
+
+
+When a command argument <code>-l</code> is provided, a listing of its variables, output characters and dictionary entries (similar to the listing shown in Slides 100 and 103 of Lecture 1) are displayed to the standard output. For example, using the same <code>test.txt</code> from the above:
+<pre>%wagner&gt; lencode -l &lt; test.txt
+NIL ^
+^ W ^ 256 ^W
+W E W 257 WE
+E D E 258 ED
+D ^ D 259 D^
+^ W
+^W E 256 260 ^WE
+E ^ E 261 E^
+^ W
+^W E
+^WE E 260 262 ^WEE
+E ^
+E^ W 261 263 E^W
+W E
+WE B 257 264 WEB
+B ^ B 265 B^
+^ W
+^W E
+^WE T 260 266 ^WET
+T EOF T
+%wagner&gt; 
+
+%wagner&gt; cat test.txt | lencode &gt; test.lzw
+
+%wagner&gt; ldecode -l &lt; test.lzw
+NIL ^ ^
+^ W W 256 ^W
+W E E 257 WE
+E D D 258 ED
+D 256 ^W 259 D^
+256 E E 260 ^WE
+E 260 ^WE 261 E^
+260 261 E^ 262 ^WEE
+261 257 WE 263 E^W
+257 B B 264 WEB
+B 260 ^WE 265 B^
+260 T T 266 ^WET
+%wagner&gt; 
+</pre>
+Note that all the output fields are delimited by a space. Similarly, if there are three consecutive spaces in this output, the second space is a symbol and the other twos are delimiters.
+<br><br>
+
+
+Your solution will be compiled and run on a typical CSE Linux machine e.g. wagner.  Your solution should <b>not</b> write out any external files.
+Any solution that fails to compile on a CSE Linux machine with the above commands or writes out external files will receive zero points for the entire assignment.
+<h2>Performance</h2>
+Any single test (e.g., <code> lencode &lt; test0001.txt </code>) that takes more than 5 seconds will be terminated, and your solution will receive zero points for that test. So, your dictionary lookup cannot be too slow (e.g., linear search may not make it).
+
+
+<h2>Documentation and Code Readability</h2>
+Your source code will be inspected. Marks may be deducted if your code is very poor on readability and ease of understanding.
+
+<h2>Notes</h2>
+<ol>
+<li>Your submission will not be tested with huge files, but it is expected to work properly and correctly for files up to a hundred kilobytes.
+
+</li><li>Marks will be deducted for output of any extra text, other than the required, correct answer. 
+This extra information includes (but not limited to) debugging messages, line numbers and so on.
+
+</li></ol>
+
+
+<h2>Marking</h2>
+This assignment is worth 15 points, all based on auto marking.
+
+
+
+<h2>Submission</h2>
+<b>Deadline: Friday 28th June 12:00pm (noon)</b>. Late submissions will have marks deducted from the maximum achievable mark at the rate of roughly 1% of the total mark per hour that they are late (i.e., 24% per day), and no submissions will be accepted after 3 days late. 
+<p>
+<br>
+Use the give command below to submit the assignment or submit via WebCMS3:
+</p><pre>    give cs9319 a1 lencode.c ldecode.c
+</pre>
+or:
+<pre>    give cs9319 a1 lencode.cpp ldecode.cpp
+</pre>
+
+<h2>Plagiarism</h2>
+The work you submit must be your own work. Submission of work partially or completely derived from any other person or jointly written with any other person is not permitted. 
+The penalties for such an offence may include negative marks, automatic failure of the course and possibly other academic discipline. 
+Assignment submissions will be examined both automatically and manually for such submissions.
+<br><br>
+Relevant scholarship authorities will be informed if students holding scholarships are involved in an incident of plagiarism or other misconduct.
+<br><br>
+Do not provide or show your assignment work to any other person - apart from the teaching staff of this subject. If you knowingly provide or show your assignment work to another person for any reason, 
+and work derived from it is submitted you may be penalized, even if the work was submitted without your knowledge or consent. 
+This may apply even if your work is submitted by a third party unknown to you.
+<br><br>
+
+
+
+</body></html>
