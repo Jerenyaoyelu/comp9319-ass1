@@ -118,6 +118,8 @@ int main(int argc, char* argv[]){
             w = k;
         }
     }
-    cout<<'\n';
+    if(!having_l){
+        cout<<'\n';
+    }
     return 0;
 }
