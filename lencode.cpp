@@ -10,8 +10,12 @@ using namespace std;
 // The short answer is, put "." in your $PATH environment: 'export PATH=$PATH:.'
 // but it may cause security risk
 
+
+//next step: need to consider space, tabs in the input text!!
+
 int main(int argc, char* argv[]){
     string data;
+    char cr;
     string output;
     string w;
     int index = 256; // upper boundary is 16384
@@ -20,7 +24,10 @@ int main(int argc, char* argv[]){
     // if(find(argv[0],argv[argc-1],"-l") != argv[argc-1]){
     // cout<<*(argv+argc-1)<<endl;
     // cout<<argc<<endl;
-    cin >> data;
+    while(cin.peek()!='\n'){
+        cr = cin.get();
+        data += cr;
+    }
     // cout << data << endl;
     if(argc == 1){
         // string iterator
