@@ -50,26 +50,61 @@ int main(int argc, char* argv[]){
                         // Thus, we need to print it out here
                         cout<<' '<<*it; 
                     }
-                    lzwDict.insert(pair<string,int>((w + *it),index++));
+                    // the dictionary reaches its maximal capacity
+                    if(lzwDict.size() <= 16384 - 256){
+                        lzwDict.insert(pair<string,int>((w + *it),index++));
+                    }
                     w = *it;
                 }
             }
         }
         cout <<"\n";
-    }
-    // if(strchr(argv,"-l") != NULL)
-    cout<<find(argv,argv+argc,"-l")<<endl;
-    cout<<argv+argc<<endl;
-    vector<string> cmd;
-    for(int i = 0;i<argc;i++){
-        cmd.push_back(argv[i]);
-    }
-    if(find(cmd.begin(),cmd.end(),"-l")!= cmd.end()){
-        // ifstream infile;
-        // infile.open("test.txt",ios::in);
-        // infile >> data;
-        cout<<"test"<<endl;
-        cout << data << endl;
+    }else{
+        vector<string> cmd;
+        for(int i = 0;i<argc;i++){//c-style
+            cmd.push_back(argv[i]);
+        }
+        if(find(cmd.begin(),cmd.end(),"-l")!= cmd.end()){
+            string::iterator it;
+            for (it = data.begin();it != data.end(); ++it){
+                if(it == data.begin()){
+                    w = *it;
+                    cout<<"NIL"<<' '<<*it<<"\n";
+                }else{
+                    //print w and k
+                    cout<<w<<' '<<*it;
+                    string temp = static_cast<string>(w + *it);
+                    if(lzwDict.find(temp)!=lzwDict.end()){
+                        w = temp;
+                        cout<<"\n";
+                    }else{
+                        cout<<' ';
+                        //print output
+                        // if w in the dictionary, then output the index
+                        if(lzwDict.find(w)!=lzwDict.end()){
+                            cout<<lzwDict[w];
+                        }else{
+                            cout<<w;
+                        }
+                        // the dictionary reaches its maximal capacity
+                        if(lzwDict.size() <= 16384 - 256){
+                            lzwDict.insert(pair<string,int>((w + *it),index++));
+                        }
+                        //print index and symbols
+                        cout<<' '<<index-1<<' '<<w + *it<<"\n";
+                        w = *it;
+                    }
+                }
+            }
+            //print last row
+            cout<<w<<' '<<"EOF"<<' ';
+            if(lzwDict.find(w)!=lzwDict.end()){
+                cout<<lzwDict[w];
+            }else{
+                cout<<w;
+            }
+            cout<<"\n";
+        }
     }
     return 0;
 }
