@@ -2,6 +2,7 @@
 #include<fstream>
 #include<algorithm>
 #include<map>
+#include<vector>
 // #include<cstring>
 
 using namespace std;
@@ -12,7 +13,7 @@ using namespace std;
 int main(int argc, char* argv[]){
     string data;
     string output;
-    string w,k,s;
+    string w;
     int index = 256; // upper boundary is 16384
     map<string,int> lzwDict;
 
@@ -57,15 +58,13 @@ int main(int argc, char* argv[]){
         cout <<"\n";
     }
     // if(strchr(argv,"-l") != NULL)
-    // cout<<find(argv,argv+argc,"-l")<<endl;
-    // cout<<argv+argc<<endl;
-    if(
-       
-        (find(argv,argv+argc,"-l")!= argv+argc)
-        ||
-        (find(argv,argv+argc,"-l") == argv+argc && strcmp(argv[argc-1],"-l")==0)
-    )
-    {
+    cout<<find(argv,argv+argc,"-l")<<endl;
+    cout<<argv+argc<<endl;
+    vector<string> cmd;
+    for(int i = 0;i<argc;i++){
+        cmd.push_back(argv[i]);
+    }
+    if(find(cmd.begin(),cmd.end(),"-l")!= cmd.end()){
         // ifstream infile;
         // infile.open("test.txt",ios::in);
         // infile >> data;
