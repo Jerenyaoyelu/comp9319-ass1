@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
     string output;
     string w;
     int index = 256; // upper boundary is 16384
-    map<string,int> lzwDict;
+    map<string,string> lzwDict;
 
     // if(find(argv[0],argv[argc-1],"-l") != argv[argc-1]){
     // cout<<*(argv+argc-1)<<endl;
@@ -59,7 +59,7 @@ int main(int argc, char* argv[]){
                     }
                     // the dictionary reaches its maximal capacity
                     if(lzwDict.size() <= 16384 - 256){
-                        lzwDict.insert(pair<string,int>((w + *it),index++));
+                        lzwDict.insert(pair<string,string>((w + *it),to_string(index++)));
                     }
                     w = *it;
                 }
@@ -95,7 +95,7 @@ int main(int argc, char* argv[]){
                         }
                         // the dictionary reaches its maximal capacity
                         if(lzwDict.size() <= 16384 - 256){
-                            lzwDict.insert(pair<string,int>((w + *it),index++));
+                            lzwDict.insert(pair<string,string>((w + *it),to_string(index++)));
                             //print index and symbols within the capacity
                             cout<<' '<<index-1<<' '<<w + *it<<"\n";
                         }
