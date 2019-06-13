@@ -96,9 +96,9 @@ int main(int argc, char* argv[]){
                         // the dictionary reaches its maximal capacity
                         if(lzwDict.size() <= 16384 - 256){
                             lzwDict.insert(pair<string,int>((w + *it),index++));
+                            //print index and symbols within the capacity
+                            cout<<' '<<index-1<<' '<<w + *it<<"\n";
                         }
-                        //print index and symbols
-                        cout<<' '<<index-1<<' '<<w + *it<<"\n";
                         w = *it;
                     }
                 }
