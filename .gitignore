@@ -3,3 +3,7 @@ ldecode
 .vscode/
 *.out
 *.lzw
+*.wiki
+res.*
+*.tar
+codes.txt
