@@ -53,13 +53,23 @@ int main(int argc, char* argv[]){
                 }else{
                     cout<<w;
                 }
-                cout<<' ';
+                // if out of capacity of dictionary, then cannot print anything except newline character
+                if(having_l){
+                    if(lzwDict.size() <= 16384 - 256){cout<<' ';}
+                }else{
+                    cout<<' ';
+                }
                 // the dictionary reaches its maximal capacity
                 if(lzwDict.size() <= 16384 - 256){
                     lzwDict.insert(pair<string,string>((w + *it),to_string(index++)));
                     if(having_l){
                         //print index and symbols within the capacity
-                        cout<<index-1<<' '<<w + *it<<"\n";
+                        cout<<index-1<<' '<<w + *it<<'\n';
+                    }
+                }else{
+                    if(having_l){
+                        //print newline without the capacity
+                        cout<<'\n';
                     }
                 }
                 w = *it;
@@ -70,6 +80,7 @@ int main(int argc, char* argv[]){
         // print last row
         cout<<w<<' '<<"EOF"<<' ';
     }
+    //output in last row
     if(lzwDict.find(w)!=lzwDict.end()){
         cout<<lzwDict[w];
     }else{
