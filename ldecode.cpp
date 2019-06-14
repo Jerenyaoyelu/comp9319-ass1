@@ -42,7 +42,13 @@ int main(int argc, char* argv[]){
     //after the last character, there will no more delimiter before "\n"
     //so need to add the last code word.
     codewords.push_back(elemt);
-    
+    ofstream codes;
+    codes.open("codes.txt");
+    for(vector<string>::iterator it = codewords.begin();it!=codewords.end();it++){
+        codes<< *it <<'|';
+    }
+    codes.close();
+
     vector<string> cmd;
     for(int i = 0;i<argc;i++){//c-style
         cmd.push_back(argv[i]);
@@ -88,7 +94,8 @@ int main(int argc, char* argv[]){
                 output = k;
             }
             cout<<output;
-            if(having_l){
+            // if out of capacity of dictionary, then cannot print anything except newline character
+            if(having_l && (lzwDict.size() <= 16384 - 256)){
                 cout<<' ';
             }
             if(lzwDict.size() <= 16384 - 256){
@@ -113,6 +120,11 @@ int main(int argc, char* argv[]){
                 if(having_l){
                     //print index and symbols within the capacity
                     cout<<index-1<<' '<<symbol<<"\n";
+                }
+            }else{
+                if(having_l){
+                    //print newline without the capacity
+                    cout<<'\n';
                 }
             }
             w = k;
