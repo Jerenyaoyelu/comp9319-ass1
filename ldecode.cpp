@@ -21,33 +21,20 @@ int main(int argc, char* argv[]){
     //because in the code word either it is a single char or a dictionary reference number
     while(cin.peek() != '\n'){
         data = cin.get();
-        if(elemt.size() == 0){
-            elemt += data;
-            if(isspace(data)){
+        if(isspace(data)){
+            if(elemt.size() == 0){
+                elemt += data;
+            }else{
                 codewords.push_back(elemt);
                 elemt.clear();
             }
         }else{
-            if(isspace(data)){
-                if(elemt.size() == 0){
-                    elemt += data;
-                }
-                codewords.push_back(elemt);
-                elemt.clear();
-            }else{
-                elemt += data;
-            }
+            elemt += data;
         }
     }
     //after the last character, there will no more delimiter before "\n"
     //so need to add the last code word.
     codewords.push_back(elemt);
-    ofstream codes;
-    codes.open("codes.txt");
-    for(vector<string>::iterator it = codewords.begin();it!=codewords.end();it++){
-        codes<< *it <<'|';
-    }
-    codes.close();
 
     vector<string> cmd;
     for(int i = 0;i<argc;i++){//c-style
@@ -112,7 +99,7 @@ int main(int argc, char* argv[]){
                         if(k.size()>1){ //k is a dictionary reference
                             symbol = (w+ lzwDict[k][0]);
                         }else{//k is a character
-                            symbol = (w+ k);
+                            symbol = (w+k);
                         }
                     }
                 }
