@@ -55,12 +55,12 @@ int main(int argc, char* argv[]){
                 }
                 // if out of capacity of dictionary, then cannot print anything except newline character
                 if(having_l){
-                    if(lzwDict.size() <= 16384 - 256){cout<<' ';}
+                    if(lzwDict.size() < 16384 - 256){cout<<' ';}
                 }else{
                     cout<<' ';
                 }
                 // the dictionary reaches its maximal capacity
-                if(lzwDict.size() <= 16384 - 256){
+                if(lzwDict.size() < 16384 - 256){
                     lzwDict.insert(pair<string,string>((w + *it),to_string(index++)));
                     if(having_l){
                         //print index and symbols within the capacity

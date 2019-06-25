@@ -82,10 +82,10 @@ int main(int argc, char* argv[]){
             }
             cout<<output;
             // if out of capacity of dictionary, then cannot print anything except newline character
-            if(having_l && (lzwDict.size() <= 16384 - 256)){
+            if(having_l && (lzwDict.size() < 16384 - 256)){
                 cout<<' ';
             }
-            if(lzwDict.size() <= 16384 - 256){
+            if(lzwDict.size() < 16384 - 256){
                 if(is_catch){
                     symbol = output;
                 }else{
